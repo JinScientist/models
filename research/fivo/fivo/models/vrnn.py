@@ -148,7 +148,7 @@ class VRNN(object):
         the model. Most often this is x_{t-1}, the previous token in the
         observation sequence.
     Returns:
-      rnn_out: The output of the RNN.
+      rnn_out: The output of the RNN.  J_note: (h_t)
       rnn_state: The new state of the RNN.
     """
     inputs_encoded = self.data_encoder(tf.to_float(inputs))
@@ -305,7 +305,7 @@ class TrainableVRNN(VRNN, base.ELBOTrainableSequenceModel):
         will be the encoded reverse input of the current timestep, a Tensor of
         shape [batch_size, encoded_data_size].
       tilt: A callable that implements the log of a positive tilting function
-        (ideally approximating log p(x_{t+1}|z_t, h_t). Must accept as arguments
+        (ideally approximating log p(x_{t+1} |z_t, h_t). Must accept as arguments
         the encoded latent state and the RNN hidden state and return a subclass
         of tf.distributions.Distribution that can be used to evaluate the
         logprob of x_{t+1}. Optionally, None and then no tilt is used.
