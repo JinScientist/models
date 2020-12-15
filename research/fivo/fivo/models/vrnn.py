@@ -148,8 +148,8 @@ class VRNN(object):
         the model. Most often this is x_{t-1}, the previous token in the
         observation sequence.
     Returns:
-      rnn_out: The output of the RNN.  J_note: (h_t)
-      rnn_state: The new state of the RNN.
+      rnn_out: The output of the RNN.  J note:  h_t
+      rnn_state: The new state of the RNN.  c_t
     """
     inputs_encoded = self.data_encoder(tf.to_float(inputs))
     rnn_inputs = tf.concat([inputs_encoded, prev_latent_encoded], axis=1)
@@ -159,7 +159,7 @@ class VRNN(object):
   def transition(self, rnn_out):
     """Computes the transition distribution p(z_t|h_t).
 
-    Note that p(z_t | h_t) = p(z_t| z_{1:t-1}, x_{1:t-1})
+    Note that p(z_t | h_t) = p(z_t | z_{1:t-1}, x_{1:t-1})
 
     Args:
       rnn_out: The output of the rnn for the current timestep.
